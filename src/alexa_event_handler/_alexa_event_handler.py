@@ -1,5 +1,5 @@
 from ._alexa_abstract_event_handler import AbstractAlexaEventHandler
-from .. import alexa_response_builder as response_builder
+import alexa_response_builder as response_builder
 from ._intent_handler import IntentHandler
 
 class AlexaEventHandler(AbstractAlexaEventHandler):

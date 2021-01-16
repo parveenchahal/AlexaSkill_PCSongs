@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
-from .controllers import EventController
-from .alexa_event_handler import AlexaEventHandler
+from controllers import EventController
+from alexa_event_handler import AlexaEventHandler
 
 app = Flask(__name__)
 api = Api(app)

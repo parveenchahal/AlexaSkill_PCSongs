@@ -1,4 +1,4 @@
-from .. import alexa_response_builder as response_builder
+import alexa_response_builder as response_builder
 
 class IntentHandler():
     _intent_name: dict
