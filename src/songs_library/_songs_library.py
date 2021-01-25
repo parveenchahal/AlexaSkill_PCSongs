@@ -1,0 +1,2 @@
+class SongsLibrary():
+    pass

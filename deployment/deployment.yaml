@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alexa-endpoint-deployment
+  namespace: pcsongs
+spec:
+  selector:
+      matchLabels:
+        run: alexa-endpoint-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: alexa-endpoint-deployment
+    spec:
+      containers:
+      - name: alexa-endpoint-1
+        image: pchahal24/alexa_skill_pc_songs:latest
+        imagePullPolicy: Always
+        ports:
+          - name: port-5000
+            containerPort: 5000
+            protocol: TCP
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi

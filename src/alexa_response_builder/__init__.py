@@ -5,16 +5,9 @@ def build_response(response: dict, session_attributes: dict = {}, version: str =
         'response': response
     }
 
-def build_resume_response(output: str = ""):
+def build_empty_response():
     return {
-        'outputSpeech': {
-            'type': 'PlainText',
-            'text': output
-        },
-        'directives': [{
-            'type': 'AudioPlayer.Play'
-        }],
-        'shouldEndSession': False
+        'shouldEndSession': True
     }
 
 def build_pause_response(output: str = ""):
@@ -26,7 +19,7 @@ def build_pause_response(output: str = ""):
         'directives': [{
             'type': 'AudioPlayer.Stop'
         }],
-        'shouldEndSession': False
+        'shouldEndSession': True
     }
 
 def build_stop_response(output: str = ""):
@@ -52,7 +45,23 @@ def build_speechlet_response(output: str, should_end_session: bool = True):
         'shouldEndSession': should_end_session
     }
 
-def build_audio_speechlet_response(output: str, url: str, token: str, should_end_session: bool = True, offsetInMilliseconds: int = 0):
+def build_audio_response(url: str, token: str, should_end_session: bool = True, offsetInMilliseconds: int = 0, play_behaviour = 'REPLACE_ALL'):
+    return {
+        'directives': [{
+            'type': 'AudioPlayer.Play',
+            'playBehavior': play_behaviour,
+            'audioItem': {
+                'stream': {
+                    'token': str(token),
+                    'url': url,
+                    'offsetInMilliseconds': offsetInMilliseconds
+                }
+            }
+        }],
+        'shouldEndSession': should_end_session
+    }
+
+def build_audio_speechlet_response(output: str, url: str, token: str, should_end_session: bool = True, offsetInMilliseconds: int = 0, play_behaviour = 'REPLACE_ALL'):
     return {
         'outputSpeech': {
             'type': 'PlainText',
@@ -60,7 +69,23 @@ def build_audio_speechlet_response(output: str, url: str, token: str, should_end
         },
         'directives': [{
             'type': 'AudioPlayer.Play',
-            'playBehavior': 'REPLACE_ALL',
+            'playBehavior': play_behaviour,
+            'audioItem': {
+                'stream': {
+                    'token': str(token),
+                    'url': url,
+                    'offsetInMilliseconds': offsetInMilliseconds
+                }
+            }
+        }],
+        'shouldEndSession': should_end_session
+    }
+
+def build_enqueue_audio_response(url: str, token: str, should_end_session: bool = True, offsetInMilliseconds: int = 0, play_behaviour = 'REPLACE_ALL'):
+    return {
+        'directives': [{
+            'type': 'AudioPlayer.Play',
+            'playBehavior': play_behaviour,
             'audioItem': {
                 'stream': {
                     'token': str(token),
