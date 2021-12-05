@@ -22,7 +22,6 @@ class AlexaEventHandler(AbstractAlexaEventHandler):
 
     def trigger(self, event: dict) -> dict:
         try:
-            print(event)
             return self._request_type[event['request']['type']](event)
         except KeyError:
             return response_builder.build_response(response_builder.build_speechlet_response("I couldn't understand this."))
