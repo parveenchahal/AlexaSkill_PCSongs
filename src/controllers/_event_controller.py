@@ -21,4 +21,6 @@ class EventController(Controller):
         else:
             self._logger.info('request body is empty')
         res = self._event_handler.trigger(parse_json(request.data))
-        return Response(to_json_string(res), 200, None, "application/json")
+        res = to_json_string(res)
+        self._logger.info(f'Response data: {res}')
+        return Response(res, 200, None, "application/json")
